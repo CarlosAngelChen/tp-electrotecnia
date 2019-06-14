@@ -8,7 +8,7 @@ fig, ((ax1), (ax2)) = plt.subplots(2, 1)
 k =  float(input())
 w0 = float(input())
 ceros = [k]
-polos = [0, w0*1, 1]
+polos = [0, 1/w0, 1]
 sys = signal.TransferFunction(ceros, polos)
 
 w, dB, phase = signal.bode(sys)
