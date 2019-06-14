@@ -30,14 +30,16 @@ sys = signal.TransferFunction(ceros, polos)
 
 w, dB, phase = signal.bode(sys)
 
-ax1.semilogx(w, dB)
+#duda: el K que ingresan, lo tengo que multiplicar por w0?
+
+ax1.semilogx(w, k*dB)
 ax1.set_xlabel('Hz')
 ax1.set_ylabel('dB')
 ax1.set_title('Base 10')
 ax1.grid(True)
 
 
-ax2.semilogx(w, dB, basex = 2)
+ax2.semilogx(w, k*dB, basex = 2)
 ax2.set_xlabel('Hz')
 ax2.set_ylabel('dB')
 ax2.set_title('Base 2')
