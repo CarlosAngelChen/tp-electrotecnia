@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider, Button, RadioButtons
 from scipy import signal
-
+#%matplotlib qt
 
 #   PRUEBA  #
 #Defino mi sistema de funcion de transferencia
@@ -20,7 +21,7 @@ from scipy import signal
 
 #   PRUEBA  #
 
-fig, ((ax1), (ax2)) = plt.subplots(2, 1)
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
 
 k =  float(input())
 w0 = float(input())
@@ -32,18 +33,32 @@ w, dB, phase = signal.bode(sys)
 
 #duda: el K que ingresan, lo tengo que multiplicar por w0?
 
-ax1.semilogx(w, k*dB)
+f = w/(2*np.pi)
+
+ax1.semilogx(f, k*dB)
 ax1.set_xlabel('Hz')
 ax1.set_ylabel('dB')
 ax1.set_title('Base 10')
 ax1.grid(True)
 
-
-ax2.semilogx(w, k*dB, basex = 2)
-ax2.set_xlabel('Hz')
+ax2.semilogx(w, k*dB)
+ax2.set_xlabel('rad/s')
 ax2.set_ylabel('dB')
-ax2.set_title('Base 2')
+ax2.set_title('Base 10')
 ax2.grid(True)
+
+ax3.semilogx(f, k*dB, basex = 2)
+ax3.set_xlabel('Hz')
+ax3.set_ylabel('dB')
+ax3.set_title('Base 2')
+ax3.grid(True)
+
+ax4.semilogx(w, k*dB, basex = 2)#
+ax4.set_xlabel('rad/s')
+ax4.set_ylabel('dB')
+ax4.set_title('Base 2')
+ax4.grid(True)
 
 fig.tight_layout()
 plt.show()
+
