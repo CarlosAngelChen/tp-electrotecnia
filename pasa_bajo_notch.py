@@ -28,7 +28,7 @@ def pb_notch():
 
         f = w/np.pi
 
-        return w, f, dB, phase
+        return w, f, dB, phase, sys, w0
 
     else:
         print("Error, wz < w0")
@@ -66,5 +66,5 @@ def pb_notch_plot(w, f, dB, phase):
 
     return 0
 
-#w, f, dB, phase = pb_notch()
+#w, f, dB, phase, sys, w0 = pb_notch()
 #pb_notch_plot(w, f, dB, phase)

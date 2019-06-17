@@ -36,7 +36,7 @@ def pa_1():
 #duda: el K que ingresan, lo tengo que multiplicar por w0?
 
     f = w/(2*np.pi)
-    return w, f, dB, phase
+    return w, f, dB, phase, sys, w0
 
 def pa_1_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
@@ -68,5 +68,5 @@ def pa_1_plot(w, f, dB, phase):
     fig.tight_layout()
     plt.show()
 
-#w, f, dB, phase = pa_1()
+#w, f, dB, phase, sys, w0 = pa_1()
 #pa_1_plot(w, f, dB, phase)

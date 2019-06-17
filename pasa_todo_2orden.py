@@ -16,7 +16,7 @@ def pt_2():
 
     f = w/np.pi
 
-    return w, f, dB, phase
+    return w, f, dB, phase, sys, w0
 
 def pt_2_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
@@ -50,5 +50,5 @@ def pt_2_plot(w, f, dB, phase):
 
     return 0
 
-#w, f, dB, phase = pt_2()
+#w, f, dB, phase, sys, w0 = pt_2()
 #pt_2_plot(w, f, dB, phase)

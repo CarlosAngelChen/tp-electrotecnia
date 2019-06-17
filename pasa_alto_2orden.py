@@ -18,7 +18,7 @@ def pa_2():
 
     f = w/np.pi
 
-    return w, f, dB, phase
+    return w, f, dB, phase, sys, w0
 
 def pa_2_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
@@ -52,5 +52,5 @@ def pa_2_plot(w, f, dB, phase):
 
     return 0
 
-#w, f, dB, phase = pa_2()
+#w, f, dB, phase, sys, w0 = pa_2()
 #pa_2_plot(w, f, dB, phase)

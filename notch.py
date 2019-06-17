@@ -16,7 +16,7 @@ def notch():
 
     f = w/np.pi
 
-    return w, f, dB, phase
+    return w, f, dB, phase, sys, w0
 
 def notch_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
@@ -50,5 +50,5 @@ def notch_plot(w, f, dB, phase):
 
     return 0
 
-#w, f, dB, phase = notch()
+#w, f, dB, phase, sys, w0 = notch()
 #notch_plot(w, f, dB, phase)

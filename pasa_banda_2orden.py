@@ -17,7 +17,7 @@ def pbanda():
 
     f = w/np.pi
 
-    return w, f, dB, phase
+    return w, f, dB, phase, sys, w0
 
 def pbanda_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
@@ -51,5 +51,5 @@ def pbanda_plot(w, f, dB, phase):
 
     return 0
 
-#w, f, dB, phase = pbanda()
+#w, f, dB, phase, sys, w0 = pbanda()
 #pbanda_plot(w, f, dB, phase)

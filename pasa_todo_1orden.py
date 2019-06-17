@@ -15,7 +15,7 @@ def pt_1():
     w, dB, phase = signal.bode(sys)
     f = w/(2*np.pi)
 
-    return w, f, dB, phase
+    return w, f, dB, phase, sys, w0
 
 
 def pt_1_plot(w, f, dB, phase):
@@ -50,5 +50,5 @@ def pt_1_plot(w, f, dB, phase):
     plt.show()
 
 
-#w, f, dB, phase = pt_1()
+#w, f, dB, phase, sys, w0 = pt_1()
 #pt_1_plot(w, f, dB, phase)
