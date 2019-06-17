@@ -51,5 +51,5 @@ def pbanda_plot(w, f, dB, phase):
 
     return 0
 
-w, f, dB, phase = pbanda()
-pbanda_plot(w, f, dB, phase)
+#w, f, dB, phase = pbanda()
+#pbanda_plot(w, f, dB, phase)

@@ -66,5 +66,5 @@ def pb_notch_plot(w, f, dB, phase):
 
     return 0
 
-w, f, dB, phase = pb_notch()
-pb_notch_plot(w, f, dB, phase)
+#w, f, dB, phase = pb_notch()
+#pb_notch_plot(w, f, dB, phase)

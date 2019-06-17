@@ -66,5 +66,5 @@ def pa_notch_plot(w, f, dB, phase):
 
     return 0
 
-w, f, dB, phase = pa_notch()
-pa_notch_plot(w, f, dB, phase)
+#w, f, dB, phase = pa_notch()
+#pa_notch_plot(w, f, dB, phase)

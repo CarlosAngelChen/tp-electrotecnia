@@ -33,7 +33,7 @@ polos = [1/(w0**2), 2*etha/w0, 1]
 
 sys = signal.lti(ceros, polos)
 t = np.linspace(0, 5, 500)
-u = np.ones_like(t)
+u = np.sin(w0*t)
 tout, y, x = signal.lsim(sys, u, t)
 plt.plot(t, y)
 plt.show()

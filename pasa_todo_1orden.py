@@ -15,10 +15,10 @@ def pt_1():
     w, dB, phase = signal.bode(sys)
     f = w/(2*np.pi)
 
-    return w, f, k, dB, phase
+    return w, f, dB, phase
 
 
-def pt_1_plot(w, f, k, dB, phase):
+def pt_1_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
 
     ax1.semilogx(f, dB)
@@ -50,5 +50,5 @@ def pt_1_plot(w, f, k, dB, phase):
     plt.show()
 
 
-#w, f, k, dB, phase = pt_1()
-#pt_1_plot(w, f, k, dB, phase)
+#w, f, dB, phase = pt_1()
+#pt_1_plot(w, f, dB, phase)

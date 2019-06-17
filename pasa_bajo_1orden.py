@@ -12,10 +12,10 @@ def pb_1():
     w, dB, phase = signal.bode(sys)
     f = w/(2*np.pi)
 
-    return w, f, k, dB, phase
+    return w, f, dB, phase
 
 
-def pb_1_plot(w, f, k, dB, phase):
+def pb_1_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
     ax1.semilogx(f, dB)
     ax1.set_xlabel('Hz')
@@ -43,3 +43,7 @@ def pb_1_plot(w, f, k, dB, phase):
 
     fig.tight_layout()
     plt.show()
+
+
+#w, f, dB, phase = pb_1()
+#pb_1_plot(w, f, dB, phase)

@@ -50,5 +50,5 @@ def pb_2_plot(w, f, dB, phase):
 
     return 0
 
-w, f, dB, phase = pb_2()
-pb_2_plot(w, f, dB, phase)
+#w, f, dB, phase = pb_2()
+#pb_2_plot(w, f, dB, phase)
