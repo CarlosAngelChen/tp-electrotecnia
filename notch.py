@@ -7,7 +7,7 @@ def notch():
     w0 = float(input())
     etha = float(input())
 
-    ceros = [1/(w0**2), 0, 1]
+    ceros = [k/(w0**2), 0, k]
     polos = [1/(w0**2), 2*etha/w0, 1]
 
     sys = signal.TransferFunction(ceros, polos)
@@ -16,10 +16,10 @@ def notch():
 
     f = w/np.pi
 
-    return w, f, k*dB, phase
+    return w, f, dB, phase
 
 def notch_plot(w, f, dB, phase):
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+    fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
 
     ax1.semilogx(f, dB)
     ax1.set_xlabel('Hz')

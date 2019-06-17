@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 from scipy import signal
 
 def pbanda():
-    k = float(input())
+    g = float(input())
     w0 = float(input())
     etha = float(input())
+    k = 2 * etha *g/w0
 
-    ceros = [1, 0]
+    ceros = [k, 0]
     polos = [1/(w0**2), 2*etha/w0, 1]
 
     sys = signal.TransferFunction(ceros, polos)
@@ -16,10 +17,10 @@ def pbanda():
 
     f = w/np.pi
 
-    return w, f, k*dB, phase
+    return w, f, dB, phase
 
 def pbanda_plot(w, f, dB, phase):
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+    fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
 
     ax1.semilogx(f, dB)
     ax1.set_xlabel('Hz')

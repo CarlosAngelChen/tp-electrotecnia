@@ -2,25 +2,39 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 
-def pa_2():
-    g = float(input())
+def validation(w0, wz):
+    if wz < w0:
+        return 1
+    else:
+        print("Error, wz < w0")
+        print("Ingrese los datos de nuevo")
+        #pa_notch()
+        return 0
+
+def pa_notch():
+    k = float(input())
     w0 = float(input())
+    wz = float(input())
+    ethaZ = float(input())
     etha = float(input())
 
-    k = g / (w0**2)
+    if validation(w0, wz):
+        ceros = [k/(wz**2), k*ethaZ/wz, k]
+        polos = [1/(w0**2), 2*etha/w0, 1]
 
-    ceros = [k, 0, 0]
-    polos = [1/(w0**2), 2*etha/w0, 1]
+        sys = signal.TransferFunction(ceros, polos)
 
-    sys = signal.TransferFunction(ceros, polos)
+        w, dB, phase = signal.bode(sys)
 
-    w, dB, phase = signal.bode(sys)
+        f = w/np.pi
 
-    f = w/np.pi
+        return w, f, dB, phase
 
-    return w, f, dB, phase
+    else:
+        print("Error, wz < w0")
+        return 0
 
-def pa_2_plot(w, f, dB, phase):
+def pa_notch_plot(w, f, dB, phase):
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
 
     ax1.semilogx(f, dB)
@@ -52,5 +66,5 @@ def pa_2_plot(w, f, dB, phase):
 
     return 0
 
-w, f, dB, phase = pa_2()
-pa_2_plot(w, f, dB, phase)
+w, f, dB, phase = pa_notch()
+pa_notch_plot(w, f, dB, phase)

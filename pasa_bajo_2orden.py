@@ -19,7 +19,7 @@ def pb_2():
     return w, f, dB, phase
 
 def pb_2_plot(w, f, dB, phase):
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+    fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
 
     ax1.semilogx(f, dB)
     ax1.set_xlabel('Hz')
