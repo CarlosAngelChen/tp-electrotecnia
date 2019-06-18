@@ -13,153 +13,131 @@ import pasa_todo_1orden
 import pasa_todo_2orden
 import notch
 
-
-
 def switcher(filt):
     if "pa1" == filt:
-        sin_pa1()
+        imp_pa1()
 
     elif "pa2" == filt:
-        sin_pa2()
+        imp_pa2()
 
     elif "paN" == filt:
-        sin_paNotch()
+        imp_paNotch()
 
     elif "pb1" == filt:
-        sin_pb1()
+        imp_pb1()
 
     elif "pb2" == filt:
-        sin_pb2()
+        imp_pb2()
 
     elif "pbN" == filt:
-        sin_pbNotch()
+        imp_pbNotch()
 
     elif "pbd" == filt:
-        sin_pbd()
+        imp_pbd()
 
     elif "pt1" == filt:
-        sin_pt1()
+        imp_pt1()
 
     elif "pt2" == filt:
-        sin_pt2()
+        imp_pt2()
 
     elif "Notch" == filt:
-        sin_notch()
+        imp_notch()
 
-def sin_pa1():
+def imp_pa1():
     w, f, dB, phase, sys, w0 = pasa_alto_1orden.pa_1()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A *np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+
+    t, y = sys.impulse(N = 500)
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pa2():
+def imp_pa2():
     w, f, dB, phase, sys, w0 = pasa_alto_2orden.pa_2()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A*np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N=500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_paNotch():
+def imp_paNotch():
     w, f, dB, phase, sys, w0 = pasa_alto_notch.pa_notch()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N=500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pb1():
+def imp_pb1():
     w, f, dB, phase, sys, w0 = pasa_bajo_1orden.pb_1()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N = 500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pb2():
+def imp_pb2():
     w, f, dB, phase, sys, w0 = pasa_bajo_2orden.pb_2()
-    A = float(input())
-    t = np.linspace(0, 50, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N = 500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pbNotch():
+def imp_pbNotch():
     w, f, dB, phase, sys, w0 = pasa_bajo_notch.pb_notch()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N=500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pbd():
+def imp_pbd():
     w, f, dB, phase, sys, w0 = pasa_banda_2orden.pbanda()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N = 500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pt1():
+def imp_pt1():
     w, f, dB, phase, sys, w0 = pasa_todo_1orden.pt_1()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N = 500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_pt2():
+def imp_pt2():
     w, f, dB, phase, sys, w0 = pasa_todo_2orden.pt_2()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N = 500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
     plt.grid()
     plt.show()
 
-def sin_notch():
+def imp_notch():
     w, f, dB, phase, sys, w0 = notch.notch()
-    A = float(input())
-    t = np.linspace(0, 5, 500)
-    u = A * np.sin(w0 * t)
-    tout, y, x = signal.lsim(sys, u, t)
+    t, y = sys.impulse(N = 500)
+
     plt.plot(t, y)
     plt.xlabel('seg')
     plt.ylabel('A (amplitud)')
