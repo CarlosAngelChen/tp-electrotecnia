@@ -4,13 +4,14 @@ from scipy import signal
 
 def pb_2():
     k = float(input())
-    w0 = float(input())
+    f1 = float(input())
     etha = float(input())
 
+    w0 = f1 *2*np.pi
     ceros = [k]
-    polos = [1/(w0**2), 2*etha/w0, 1]
+    polos = [1/(w0*w0), 2*etha/w0, 1]
 
-    sys = signal.TransferFunction(ceros, polos)
+    sys = signal.lti(ceros, polos)
 
     w, dB, phase = signal.bode(sys)
 
@@ -30,7 +31,7 @@ def pb_2_plot(w, f, dB, phase):
     ax2.semilogx(w, dB)
     ax2.set_xlabel('rad/s')
     ax2.set_ylabel('dB')
-    ax2.set_title('Base 2')
+    ax2.set_title('Base 10')
     ax2.grid(True)
 
     ax3.semilogx(f, dB, basex=2)

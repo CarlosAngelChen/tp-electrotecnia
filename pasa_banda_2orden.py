@@ -4,8 +4,10 @@ from scipy import signal
 
 def pbanda():
     g = float(input())
-    w0 = float(input())
+    f1 = float(input())
     etha = float(input())
+
+    w0 = f1 * 2 * np.pi
     k = 2 * etha *g/w0
 
     ceros = [k, 0]

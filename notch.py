@@ -4,9 +4,9 @@ from scipy import signal
 
 def notch():
     k = float(input())
-    w0 = float(input())
+    f1 = float(input())
     etha = float(input())
-
+    w0 = 2*np.pi*f1
     ceros = [k/(w0**2), 0, k]
     polos = [1/(w0**2), 2*etha/w0, 1]
 
@@ -14,7 +14,7 @@ def notch():
 
     w, dB, phase = signal.bode(sys)
 
-    f = w/np.pi
+    f = w/(2*np.pi)
 
     return w, f, dB, phase, sys, w0
 
@@ -30,7 +30,7 @@ def notch_plot(w, f, dB, phase):
     ax2.semilogx(w, dB)
     ax2.set_xlabel('rad/s')
     ax2.set_ylabel('dB')
-    ax2.set_title('Base 2')
+    ax2.set_title('Base 10')
     ax2.grid(True)
 
     ax3.semilogx(f, dB, basex=2)

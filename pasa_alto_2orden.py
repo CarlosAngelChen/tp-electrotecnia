@@ -4,8 +4,10 @@ from scipy import signal
 
 def pa_2():
     g = float(input())
-    w0 = float(input())
+    f1 = float(input())
     etha = float(input())
+
+    w0 = 2*np.pi*f1
 
     k = g / (w0**2)
 
@@ -32,7 +34,7 @@ def pa_2_plot(w, f, dB, phase):
     ax2.semilogx(w, dB)
     ax2.set_xlabel('rad/s')
     ax2.set_ylabel('dB')
-    ax2.set_title('Base 2')
+    ax2.set_title('Base 10')
     ax2.grid(True)
 
     ax3.semilogx(f, dB, basex=2)
@@ -52,5 +54,5 @@ def pa_2_plot(w, f, dB, phase):
 
     return 0
 
-#w, f, dB, phase, sys, w0 = pa_2()
-#pa_2_plot(w, f, dB, phase)
+w, f, dB, phase, sys, w0 = pa_2()
+pa_2_plot(w, f, dB, phase)

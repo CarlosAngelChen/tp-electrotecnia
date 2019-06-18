@@ -4,7 +4,8 @@ from scipy import signal
 
 def pb_1():
     k =  float(input())
-    w0 = float(input())
+    f1 = float(input())
+    w0 = f1 *2*np.pi
     ceros = [k]
     polos = [0, 1/w0, 1]
     sys = signal.TransferFunction(ceros, polos)

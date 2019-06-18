@@ -25,7 +25,8 @@ from scipy import signal
 def pa_1():
 
     g =  float(input())
-    w0 = float(input())
+    f1 = float(input()) #input de frecuencia del usuario
+    w0 = 2 * np.pi * f1
     k = g/w0
     ceros = [k, 0]
     polos = [0, 1/w0, 1]
@@ -33,9 +34,10 @@ def pa_1():
 
     w, dB, phase = signal.bode(sys)
 
+    f = w/(2*np.pi)
+
 #duda: el K que ingresan, lo tengo que multiplicar por w0?
 
-    f = w/(2*np.pi)
     return w, f, dB, phase, sys, w0
 
 def pa_1_plot(w, f, dB, phase):
