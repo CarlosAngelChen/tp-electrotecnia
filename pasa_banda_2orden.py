@@ -3,12 +3,11 @@ import matplotlib.pyplot as plt
 from scipy import signal
 
 def pbanda():
-    g = float(input())
-    f1 = float(input())
+    k = float(input())
+    #f1 = float(input())
     etha = float(input())
 
-    w0 = f1 * 2 * np.pi
-    k = 2 * etha *g/w0
+    w0 = float(input())
 
     ceros = [k, 0]
     polos = [1/(w0**2), 2*etha/w0, 1]
@@ -22,7 +21,7 @@ def pbanda():
     return w, f, dB, phase, sys, w0
 
 def pbanda_plot(w, f, dB, phase):
-    fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2)
+    fig, ((ax1), (ax2), ax3) = plt.subplots(3, 1)
 
     ax1.semilogx(f, dB)
     ax1.set_xlabel('Hz')
@@ -36,17 +35,10 @@ def pbanda_plot(w, f, dB, phase):
     ax2.set_title('Base 2')
     ax2.grid(True)
 
-    ax3.semilogx(f, dB, basex=2)
-    ax3.set_xlabel('Hz')
-    ax3.set_ylabel('dB')
-    ax3.set_title('Base 2')
+    ax3.semilogx(w, phase)
+    ax3.set_xlabel('rad/s')
+    ax3.set_ylabel('Grados')
     ax3.grid(True)
-
-    ax4.semilogx(w, dB, basex=2)
-    ax4.set_xlabel('rad/s')
-    ax4.set_ylabel('dB')
-    ax4.set_title('Base 2')
-    ax4.grid(True)
 
     fig.tight_layout()
     plt.show()

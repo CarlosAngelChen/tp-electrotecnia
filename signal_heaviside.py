@@ -94,7 +94,7 @@ def jevi_pa2():
     fig.tight_layout()
     plt.show()
 
-def sqr_paNotch():
+def jevi_paNotch():
     w, f, dB, phase, sys, w0 = pasa_alto_notch.pa_notch()
     A = float(input())  # input de amplitud
     t = np.linspace(0, 5 * (1 / w0), 5000)

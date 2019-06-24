@@ -46,7 +46,7 @@ def switcher(filt):
 
 def sqr_pa1():
 
-    w, f, dB, phase, sys, w0 = pasa_alto_1orden.pa_1()
+    w, f, dB, phase, sys, w0,etha = pasa_alto_1orden.pa_1()
 
     duty = float(input())#input del duty
     f1 = float(input())#input de frec de la cuadrada
@@ -75,7 +75,7 @@ def sqr_pa1():
     plt.show()
 
 def sqr_pa2():
-    w, f, dB, phase, sys, w0 = pasa_alto_2orden.pa_2()
+    w, f, dB, phase, sys, w0, etha = pasa_alto_2orden.pa_2()
 
     duty = float(input())#input del duty
     f1 = float(input())#input de frec de la cuadrada
@@ -158,7 +158,7 @@ def sqr_pb1():
     plt.show()
 
 def sqr_pb2():
-    w, f, dB, phase, sys, w0 = pasa_bajo_2orden.pb_2()
+    w, f, dB, phase, sys, w0, etha = pasa_bajo_2orden.pb_2()
     duty = float(input())#input del duty
     f1 = float(input())#input de frec de la cuadrada
     w1 = f1 * 2 * np.pi
