@@ -1,0 +1,530 @@
+import tkinter as tk
+
+import Config
+from UserInput import userinput, filtro, modo, ejex, ejey, senhal, senhalparams, orden
+
+
+class Orden1(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent, bg='#42f498')
+
+        self.controller = controller
+        self.parent = parent
+
+        self.titulo = tk.Label(
+            self,
+            text="Configure su circuito:",
+            font=Config.SMALL_FONT,
+            bg='#42f498'
+
+        )
+        self.titulo.grid(row=0, column=0, sticky='nswe', columnspan=7)
+
+        self.etiquetas = [tk.Label(self, text='Orden del Filtro', font=Config.SMALL_FONT, bg='#42f498'),
+                          tk.Label(self, text='Tipo de Filtro', font=Config.SMALL_FONT, bg='#42f498'),
+                          tk.Label(self, text='Tipo de Grafico', font=Config.SMALL_FONT, bg='#42f498'),
+                          tk.Label(self, text='Ejes Bode', font=Config.SMALL_FONT, bg='#42f498'),
+                          tk.Label(self, text='Tipo de senal', font=Config.SMALL_FONT, bg='#42f498')]
+
+        contador = 0
+        for L in self.etiquetas:
+            L.grid(row=1, column=contador)
+            contador += 1
+
+        self.orden = tk.IntVar(value=99)
+
+        self.circuloorden1 = tk.Radiobutton(
+            self,
+            height=5,
+            text='Filtro de primer Orden',
+            value=0,
+            variable=self.orden,
+            command=self.assign_var_orden,
+            bg='#42f498'
+        )
+        self.circuloorden1.grid(row=2, column=0)
+
+        self.circuloorden2 = tk.Radiobutton(
+            self,
+            height=5,
+            text='Filtro de segundo Orden',
+            value=1,
+            variable=self.orden,
+            command=self.assign_var_orden,
+            bg='#42f498'
+        )
+        self.circuloorden2.grid(row=3, column=0)
+
+        self.modofiltro = tk.IntVar(value=99)
+
+        self.circuloalto = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pasa Alto',
+            value=0,
+            variable=self.modofiltro,
+            command=self.asign_var_filtro,
+            background='#42f498'
+        )
+        self.circuloalto.grid(row=2, column=1)
+
+        self.circulobajo = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pasa Bajo',
+            value=1,
+            variable=self.modofiltro,
+            command=self.asign_var_filtro,
+            background='#42f498'
+        )
+        self.circulobajo.grid(row=3, column=1)
+
+        self.circulotodo = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pasa Todo',
+            value=2,
+            variable=self.modofiltro,
+            command=self.asign_var_filtro,
+            background='#42f498'
+        )
+        self.circulotodo.grid(row=4, column=1)
+
+        self.circulobanda = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pasa banda',
+            value=3,
+            variable=self.modofiltro,
+            command=self.asign_var_filtro,
+            background='#42f498'
+        )
+        self.circulobanda.grid(row=5, column=1)
+
+        self.modografico = tk.IntVar(value=99)
+
+        self.circuloBode = tk.Radiobutton(
+            self,
+            height=5,
+            text='Gráfico Bode',
+            value=0,
+            variable=self.modografico,
+            command=self.asign_var_grafico,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.circuloBode.grid(row=2, column=2)
+
+        self.circuloSenhal = tk.Radiobutton(
+            self,
+            height=5,
+            text='Gráfico Salida',
+            value=1,
+            variable=self.modografico,
+            command=self.asign_var_grafico,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.circuloSenhal.grid(row=3, column=2)
+
+        self.modoejex = tk.IntVar(value=99)
+        self.modoejey = tk.IntVar(value=99)
+
+        self.circuloHertz = tk.Radiobutton(
+            self,
+            height=5,
+            text='Bode en Hertz',
+            value=0,
+            variable=self.modoejex,
+            command=self.asign_var_ejex,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.circuloHertz.grid(row=2, column=3)
+
+        self.circuloRadianes = tk.Radiobutton(
+            self,
+            height=5,
+            text='Bode en Radianes',
+            value=1,
+            variable=self.modoejex,
+            command=self.asign_var_ejex,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.circuloRadianes.grid(row=3, column=3)
+
+        self.circuloDB = tk.Radiobutton(
+            self,
+            height=5,
+            text='Bode en DB',
+            value=0,
+            variable=self.modoejey,
+            command=self.asign_var_ejey,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.circuloDB.grid(row=4, column=3)
+
+        self.circuloB = tk.Radiobutton(
+            self,
+            height=5,
+            text='Bode en B',
+            value=1,
+            variable=self.modoejey,
+            command=self.asign_var_ejey,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.circuloB.grid(row=5, column=3)
+
+        self.tipodesenhal = tk.IntVar(value=99)
+
+        self.circulosenoide = tk.Radiobutton(
+            self,
+            height=5,
+            text='Senoide',
+            value=0,
+            variable=self.tipodesenhal,
+            command=self.asign_var_senhal,
+            state=tk.DISABLED,
+            background='#42f498'
+        )
+        self.circulosenoide.grid(row=2, column=4)
+
+        self.circulopulso = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pulso',
+            value=1,
+            variable=self.tipodesenhal,
+            command=self.asign_var_senhal,
+            state=tk.DISABLED,
+            background='#42f498'
+        )
+        self.circulopulso.grid(row=3, column=4)
+
+        self.circulopulsoper = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pulso Periodico',
+            value=2,
+            variable=self.tipodesenhal,
+            command=self.asign_var_senhal,
+            state=tk.DISABLED,
+            background='#42f498'
+        )
+        self.circulopulsoper.grid(row=4, column=4)
+
+        self.labelpolo = tk.Label(
+            self,
+            text='Ingrese el polo del filtro:',
+            bg='#42f498',
+            state=tk.DISABLED
+
+        )
+        self.labelpolo.grid(row=2, column=5, padx=35)
+
+        self.labelganancia = tk.Label(
+            self,
+            text='Ingrese la ganancia del filtro:',
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.labelganancia.grid(row=3, column=5, padx=35)
+
+        self.inputpolo = tk.StringVar()
+        self.inputcero = tk.StringVar()
+
+        self.entrypolo = tk.Entry(
+            self,
+            textvariable=self.inputpolo,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.entrypolo.grid(row=2, column=6)
+
+        self.entrycero = tk.Entry(
+            self,
+            textvariable=self.inputcero,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.entrycero.grid(row=3, column=6)
+
+        self.labelamp = tk.Label(
+            self,
+            text='Ingrese amplitud de la señal',
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.labelamp.grid(row=6, column=5, pady=10)
+
+        self.inputsenoide = tk.StringVar()
+
+        self.entrysenoide = tk.Entry(
+            self,
+            textvariable=self.inputsenoide,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+        self.entrysenoide.grid(row=6, column=6, pady=10)
+
+        self.labelfrecuencia = tk.Label(
+            self,
+            text='Ingrese la frecuencia de la señal:',
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.labelfrecuencia.grid(row=7, column=5, pady=10)
+
+        self.inputfrecuencia = tk.StringVar()
+
+        self.entryfrecuencia = tk.Entry(
+            self,
+            textvariable=self.inputfrecuencia,
+            background='#42f498',
+            state=tk.DISABLED
+        )
+
+        self.entryfrecuencia.grid(row=7, column=6, pady=10)
+
+        self.labeldc = tk.Label(
+            self,
+            text='Ingrese el valor del Dutycycle del pulso:',
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.labeldc.grid(row=8, column=5, pady=10)
+
+        self.inputdc = tk.StringVar()
+
+        self.entrydc = tk.Entry(
+            self,
+            textvariable=self.inputdc,
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.entrydc.grid(row=8, column=6, pady=10)
+
+        self.labelw0 = tk.Label(
+            self,
+            text='Ingrese el valor de w0:',
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+
+        self.labelw0.grid(row=4, column=5)
+
+        self.inputw0 = tk.StringVar()
+
+        self.entryw0 = tk.Entry(
+            self,
+            textvariable=self.inputw0,
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.entryw0.grid(row=4, column=6)
+
+        self.labelE = tk.Label(
+            self,
+            text='Ingrese el valor de e:',
+            bg='#42f498',
+            state=tk.DISABLED
+
+        )
+        self.labelE.grid(row=5, column=5)
+
+        self.inputE = tk.StringVar()
+
+        self.entryE = tk.Entry(
+            self,
+            textvariable=self.inputE,
+            bg='#42f498',
+            state=tk.DISABLED
+        )
+        self.entryE.grid(row=5, column=6)
+
+        self.continuar = tk.Button(
+            self,
+            text="Continuar",
+            font=Config.SMALL_FONT,
+            background="#ccffd5",
+            command=self.continuar
+        )
+        self.continuar.grid(row=9, column=6)
+
+    def assign_var_orden(self):
+        self.TurnOnAllEntries()
+
+        orden['orden1'] = 0
+        orden['oprden2'] = 0
+
+        if not self.orden.get():
+            orden['orden1'] = 1
+        else:
+            orden['orden2'] = 1
+
+
+    #este método escribe en userinput que tipo de filtro se pide
+    def asign_var_filtro(self):
+        self.circuloBode.configure(state=tk.NORMAL)
+        self.circuloSenhal.configure(state=tk.NORMAL)
+
+        filtro['alto'] = 0
+        filtro['bajo'] = 0
+        filtro['todo'] = 0
+
+        if not self.modofiltro.get():
+            filtro['alto'] = 1
+        elif self.modofiltro.get() == 1:
+            filtro['bajo'] = 1
+        elif self.modofiltro.get() == 2:
+            filtro['todo'] = 1
+        elif self.modofiltro.get() == 3:
+            filtro["banda"] = 1
+        else:
+            filtro["notch"] = 1
+
+    def asign_var_grafico(self):
+        modo['Bode'] = 0
+        modo['Salida'] = 0
+
+        if not self.modografico.get():
+
+            modo['Bode'] = 1
+            #Activa los botones
+            self.circuloHertz.configure(state=tk.NORMAL)
+            self.circuloRadianes.configure(state=tk.NORMAL)
+            self.circuloDB.configure(state=tk.NORMAL)
+            self.circuloB.configure(state=tk.NORMAL)
+
+            self.circulosenoide.configure(state=tk.DISABLED)
+            self.circulopulso.configure(state=tk.DISABLED)
+            self.circulopulsoper.configure(state=tk.DISABLED)
+        else:
+            modo['Salida'] = 1
+            #Desactiva los botones
+            self.circulosenoide.configure(state=tk.NORMAL)
+            self.circulopulso.configure(state=tk.NORMAL)
+            self.circulopulsoper.configure(state=tk.NORMAL)
+
+            self.circuloHertz.configure(state=tk.DISABLED)
+            self.circuloRadianes.configure(state=tk.DISABLED)
+            self.circuloDB.configure(state=tk.DISABLED)
+            self.circuloB.configure(state=tk.DISABLED)
+
+    def asign_var_ejex(self):
+
+        ejex['Hertz'] = 0
+        ejex['Radianes'] = 0
+
+        if not self.modoejex.get():
+            ejex['Hertz'] = 1
+        else:
+            ejex['Radianes'] = 1
+
+    def asign_var_ejey(self):
+
+        ejey['Decibeles'] = 0
+        ejey['Beles'] = 0
+
+        if not self.modoejey.get():
+            ejey['Decibeles'] = 1
+        else:
+            ejey['Beles'] = 1
+
+    def asign_var_senhal(self):
+        senhal['senoide'] = 0
+        senhal['pulso'] = 0
+        senhal['pulsoper'] = 0
+
+        self.labelamp.configure(state=tk.NORMAL)
+        self.entrysenoide.configure(state=tk.NORMAL)
+        self.labelfrecuencia.configure(state=tk.NORMAL)
+        self.entryfrecuencia.configure(state=tk.NORMAL)
+
+        if not self.tipodesenhal.get():
+            senhal['senoide'] = 1
+        elif self.tipodesenhal.get() == 1:
+            senhal['pulso'] = 1
+        else:
+            self.labeldc.configure(state=tk.NORMAL)
+            self.entrydc.configure(state=tk.NORMAL)
+            senhal['pulsoper'] = 1
+
+    #muestro siguiente pantalla y asigno el valor de la frecuencia del polo y/o cero, falta agregar que apsa si me mete algo que no sea un numero o vacio
+    def continuar(self):
+        if self.entrypolo.get():
+            userinput['f0'] = float(self.entrypolo.get())
+
+        if self.entrycero.get():
+            userinput['c'] = float(self.entrycero.get())
+
+        if self.entryfrecuencia.get():
+            senhalparams['frecuencia'] = float(self.entryfrecuencia.get())
+
+        if self.entrysenoide.get():
+            senhalparams['Amplitud'] = float(self.entrysenoide.get())
+
+        if self.entrydc.get():
+            senhalparams['DutyCicle'] = float(self.entrydc.get())
+
+        if self.entryw0.get():
+            userinput['wo'] = float(self.entryw0.get())
+
+        if self.entryE.get():
+            userinput['e'] = float(self.entryE.get())
+
+        from Menu_Grafico import Grafico
+
+        self.controller.showFrame(Grafico)
+
+    def show_etiquetas(self):
+        contador = 0
+        for L in self.etiquetas:
+            L.grid(row=1, column=contador)
+            contador += 1
+
+    def TurnOffAllEntries(self):
+        self.labelpolo.configure(state=tk.DISABLED)
+        self.labelganancia.configure(state=tk.DISABLED)
+        self.entrypolo.configure(state=tk.DISABLED)
+        self.entrycero.configure(state=tk.DISABLED)
+        self.labelamp.configure(state=tk.DISABLED)
+        self.entrysenoide.configure(state=tk.DISABLED)
+        self.labeldc.configure(state=tk.DISABLED)
+        self.entrydc.configure(state=tk.DISABLED)
+        self.labelE.configure(state=tk.DISABLED)
+        self.entryE.configure(state=tk.DISABLED)
+        self.labelfrecuencia.configure(state=tk.DISABLED)
+        self.entryfrecuencia.configure(state=tk.DISABLED)
+        self.labelw0.configure(state=tk.DISABLED)
+        self.entryw0.configure(state=tk.DISABLED)
+
+    def TurnOffEntry(self, entry, label):
+        entry.configure(state=tk.DISABLED)
+        label.configure(state=tk.DISABLED)
+
+    def TurnOnAllEntries(self):
+        self.labelpolo.configure(state=tk.NORMAL)
+        self.labelganancia.configure(state=tk.NORMAL)
+        self.entrypolo.configure(state=tk.NORMAL)
+        self.entrycero.configure(state=tk.NORMAL)
+        self.labelamp.configure(state=tk.NORMAL)
+        self.entrysenoide.configure(state=tk.NORMAL)
+        self.labeldc.configure(state=tk.NORMAL)
+        self.entrydc.configure(state=tk.NORMAL)
+        self.labelE.configure(state=tk.NORMAL)
+        self.entryE.configure(state=tk.NORMAL)
+        self.labelfrecuencia.configure(state=tk.NORMAL)
+        self.entryfrecuencia.configure(state=tk.NORMAL)
+        self.labelw0.configure(state=tk.NORMAL)
+        self.entryw0.configure(state=tk.NORMAL)
+
+    def TurnOnEntry(self, entry, label):
+        entry.configure(state=tk.NORMAL)
+        label.configure(state=tk.NORMAL)
+
+    def focus(self):
+        pass
