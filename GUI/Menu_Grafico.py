@@ -12,7 +12,7 @@ import numpy as np
 from scipy import signal
 from numpy import pi
 
-#parece qeu pulso periodico no anda
+
 #Este menu es el correspondiente al grafico de Bode
 class Grafico(tk.Frame):
     def __init__(self, parent, controller):
@@ -70,7 +70,7 @@ class Grafico(tk.Frame):
             elif filtro['banda']:
                 self.plotPasaBanda2Orden()
             else:
-                pass
+                self.plotPasaNotch2Orden()
 
         self.dataPlot.draw()
 
@@ -224,7 +224,7 @@ class Grafico(tk.Frame):
 
         w, dB, phase = signal.bode(sys2, w=None, n=500)
 
-        f = w/(2*np.pi)
+        f = w/np.pi
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
@@ -244,9 +244,9 @@ class Grafico(tk.Frame):
 
         w, dB, phase = signal.bode(sys2, n=500)
 
-        f = w/(2*np.pi)
+        f = w / (2 * np.pi)
 
-        if modo['Notch']:
+        if modo['Bode']:
             self.grafBode(f, dB, w)
         else:
             self.grafSignal(sys2, w0)
