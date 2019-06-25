@@ -474,7 +474,7 @@ class Orden1(tk.Frame):
 
     #este método escribe en userinput que tipo de filtro se pide
     def asign_var_filtro(self):
-        self.TurnOnButton([self.circuloBode, self.circuloSenhal])
+        self.TurnOnButton([self.circuloBode, self.circuloSenhal, self.circuloBodefase])
 
         filtro['alto'] = 0
         filtro['bajo'] = 0
