@@ -6,7 +6,7 @@ from UserInput import userinput, filtro, modo, ejex, ejey, senhal, senhalparams,
 
 class Orden1(tk.Frame):
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent, bg='#42f498')
+        tk.Frame.__init__(self, parent, bg='#c0c0c0')
 
         self.controller = controller
         self.parent = parent
@@ -14,22 +14,34 @@ class Orden1(tk.Frame):
         self.titulo = tk.Label(
             self,
             text="Configure su circuito:",
-            font=Config.SMALL_FONT,
-            bg='#42f498'
+            font=Config.VERY_LARGE_FONT,
+            bg='#87cefa'
 
         )
-        self.titulo.grid(row=0, column=0, sticky='nswe', columnspan=7)
+        self.titulo.grid(row=0, column=0, sticky='nswe', columnspan=8)
 
-        self.etiquetas = [tk.Label(self, text='Orden del Filtro', font=Config.SMALL_FONT, bg='#42f498'),
-                          tk.Label(self, text='Tipo de Filtro', font=Config.SMALL_FONT, bg='#42f498'),
-                          tk.Label(self, text='Tipo de Grafico', font=Config.SMALL_FONT, bg='#42f498'),
-                          tk.Label(self, text='Ejes Bode', font=Config.SMALL_FONT, bg='#42f498'),
-                          tk.Label(self, text='Tipo de senal', font=Config.SMALL_FONT, bg='#42f498')]
+        self.vacio = tk.Label(
+            self,
+            bg='#c0c0c0'
+        )
+        self.vacio.grid(row=1)
 
-        contador = 0
-        for L in self.etiquetas:
-            L.grid(row=1, column=contador)
-            contador += 1
+        self.vacio2 = tk.Label(
+            self,
+            bg='#c0c0c0'
+        )
+        self.vacio2.grid(column=7, padx=50)
+
+
+
+
+        self.etiquetas = [tk.Label(self, text='Orden del Filtro', font=Config.SMALL_FONT, bg='#c0c0c0'),
+                          tk.Label(self, text='Tipo de Filtro', font=Config.SMALL_FONT, bg='#c0c0c0'),
+                          tk.Label(self, text='Tipo de Grafico', font=Config.SMALL_FONT, bg='#c0c0c0'),
+                          tk.Label(self, text='Ejes Bode', font=Config.SMALL_FONT, bg='#c0c0c0'),
+                          tk.Label(self, text='Tipo de senal', font=Config.SMALL_FONT, bg='#c0c0c0')]
+
+        self.show_etiquetas()
 
         self.orden = tk.IntVar(value=99)
 
@@ -40,9 +52,9 @@ class Orden1(tk.Frame):
             value=0,
             variable=self.orden,
             command=self.assign_var_orden,
-            bg='#42f498'
+            bg='#c0c0c0'
         )
-        self.circuloorden1.grid(row=2, column=0)
+        self.circuloorden1.grid(row=3, column=0)
 
         self.circuloorden2 = tk.Radiobutton(
             self,
@@ -51,9 +63,9 @@ class Orden1(tk.Frame):
             value=1,
             variable=self.orden,
             command=self.assign_var_orden,
-            bg='#42f498'
+            bg='#c0c0c0'
         )
-        self.circuloorden2.grid(row=3, column=0)
+        self.circuloorden2.grid(row=4, column=0)
 
         self.modofiltro = tk.IntVar(value=99)
 
@@ -64,9 +76,10 @@ class Orden1(tk.Frame):
             value=0,
             variable=self.modofiltro,
             command=self.asign_var_filtro,
-            background='#42f498'
+            background='#c0c0c0',
+            state=tk.DISABLED
         )
-        self.circuloalto.grid(row=2, column=1)
+        self.circuloalto.grid(row=3, column=1)
 
         self.circulobajo = tk.Radiobutton(
             self,
@@ -75,9 +88,10 @@ class Orden1(tk.Frame):
             value=1,
             variable=self.modofiltro,
             command=self.asign_var_filtro,
-            background='#42f498'
+            background='#c0c0c0',
+            state=tk.DISABLED
         )
-        self.circulobajo.grid(row=3, column=1)
+        self.circulobajo.grid(row=4, column=1)
 
         self.circulotodo = tk.Radiobutton(
             self,
@@ -86,9 +100,10 @@ class Orden1(tk.Frame):
             value=2,
             variable=self.modofiltro,
             command=self.asign_var_filtro,
-            background='#42f498'
+            background='#c0c0c0',
+            state=tk.DISABLED
         )
-        self.circulotodo.grid(row=4, column=1)
+        self.circulotodo.grid(row=5, column=1)
 
         self.circulobanda = tk.Radiobutton(
             self,
@@ -97,9 +112,10 @@ class Orden1(tk.Frame):
             value=3,
             variable=self.modofiltro,
             command=self.asign_var_filtro,
-            background='#42f498'
+            background='#c0c0c0',
+            state=tk.DISABLED
         )
-        self.circulobanda.grid(row=5, column=1)
+        self.circulobanda.grid(row=6, column=1)
 
         self.circulonotch = tk.Radiobutton(
             self,
@@ -108,9 +124,10 @@ class Orden1(tk.Frame):
             value=4,
             variable=self.modofiltro,
             command=self.asign_var_filtro,
-            background='#42f498'
+            background='#c0c0c0',
+            state=tk.DISABLED
         )
-        self.circulonotch.grid(row=6, column=1)
+        self.circulonotch.grid(row=7, column=1)
 
         self.modografico = tk.IntVar(value=99)
 
@@ -121,10 +138,10 @@ class Orden1(tk.Frame):
             value=0,
             variable=self.modografico,
             command=self.asign_var_grafico,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.circuloBode.grid(row=2, column=2)
+        self.circuloBode.grid(row=3, column=2)
 
         self.circuloSenhal = tk.Radiobutton(
             self,
@@ -133,10 +150,10 @@ class Orden1(tk.Frame):
             value=1,
             variable=self.modografico,
             command=self.asign_var_grafico,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.circuloSenhal.grid(row=3, column=2)
+        self.circuloSenhal.grid(row=4, column=2)
 
         self.modoejex = tk.IntVar(value=99)
         self.modoejey = tk.IntVar(value=99)
@@ -148,10 +165,10 @@ class Orden1(tk.Frame):
             value=0,
             variable=self.modoejex,
             command=self.asign_var_ejex,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.circuloHertz.grid(row=2, column=3)
+        self.circuloHertz.grid(row=3, column=3)
 
         self.circuloRadianes = tk.Radiobutton(
             self,
@@ -160,10 +177,10 @@ class Orden1(tk.Frame):
             value=1,
             variable=self.modoejex,
             command=self.asign_var_ejex,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.circuloRadianes.grid(row=3, column=3)
+        self.circuloRadianes.grid(row=4, column=3)
 
         self.circuloDB = tk.Radiobutton(
             self,
@@ -172,10 +189,10 @@ class Orden1(tk.Frame):
             value=0,
             variable=self.modoejey,
             command=self.asign_var_ejey,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.circuloDB.grid(row=4, column=3)
+        self.circuloDB.grid(row=5, column=3)
 
         self.circuloB = tk.Radiobutton(
             self,
@@ -184,10 +201,10 @@ class Orden1(tk.Frame):
             value=1,
             variable=self.modoejey,
             command=self.asign_var_ejey,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.circuloB.grid(row=5, column=3)
+        self.circuloB.grid(row=6, column=3)
 
         self.tipodesenhal = tk.IntVar(value=99)
 
@@ -199,9 +216,9 @@ class Orden1(tk.Frame):
             variable=self.tipodesenhal,
             command=self.asign_var_senhal,
             state=tk.DISABLED,
-            background='#42f498'
+            background='#c0c0c0'
         )
-        self.circulosenoide.grid(row=2, column=4)
+        self.circulosenoide.grid(row=3, column=4)
 
         self.circulopulso = tk.Radiobutton(
             self,
@@ -211,9 +228,9 @@ class Orden1(tk.Frame):
             variable=self.tipodesenhal,
             command=self.asign_var_senhal,
             state=tk.DISABLED,
-            background='#42f498'
+            background='#c0c0c0'
         )
-        self.circulopulso.grid(row=3, column=4)
+        self.circulopulso.grid(row=4, column=4)
 
         self.circulopulsoper = tk.Radiobutton(
             self,
@@ -223,26 +240,26 @@ class Orden1(tk.Frame):
             variable=self.tipodesenhal,
             command=self.asign_var_senhal,
             state=tk.DISABLED,
-            background='#42f498'
+            background='#c0c0c0'
         )
-        self.circulopulsoper.grid(row=4, column=4)
+        self.circulopulsoper.grid(row=5, column=4)
 
         self.labelpolo = tk.Label(
             self,
             text='Ingrese el polo del filtro:',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
 
         )
-        self.labelpolo.grid(row=2, column=5, padx=35)
+        self.labelpolo.grid(row=3, column=5)
 
         self.labelganancia = tk.Label(
             self,
             text='Ingrese la ganancia del filtro:',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.labelganancia.grid(row=3, column=5, padx=35)
+        self.labelganancia.grid(row=4, column=5)
 
         self.inputpolo = tk.StringVar()
         self.inputcero = tk.StringVar()
@@ -250,137 +267,146 @@ class Orden1(tk.Frame):
         self.entrypolo = tk.Entry(
             self,
             textvariable=self.inputpolo,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.entrypolo.grid(row=2, column=6)
+        self.entrypolo.grid(row=3, column=6)
 
-        self.entrycero = tk.Entry(
+        self.entryganancia = tk.Entry(
             self,
             textvariable=self.inputcero,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.entrycero.grid(row=3, column=6)
+        self.entryganancia.grid(row=4, column=6)
 
         self.labelamp = tk.Label(
             self,
             text='Ingrese amplitud de la señal',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.labelamp.grid(row=6, column=5, pady=10)
+        self.labelamp.grid(row=7, column=5)
 
         self.inputsenoide = tk.StringVar()
 
-        self.entrysenoide = tk.Entry(
+        self.entryamp = tk.Entry(
             self,
             textvariable=self.inputsenoide,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
-        self.entrysenoide.grid(row=6, column=6, pady=10)
+        self.entryamp.grid(row=7, column=6, pady=25)
 
         self.labelfrecuencia = tk.Label(
             self,
             text='Ingrese la frecuencia de la señal:',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.labelfrecuencia.grid(row=7, column=5, pady=10)
+        self.labelfrecuencia.grid(row=8, column=5, pady=25)
 
         self.inputfrecuencia = tk.StringVar()
 
         self.entryfrecuencia = tk.Entry(
             self,
             textvariable=self.inputfrecuencia,
-            background='#42f498',
+            background='#c0c0c0',
             state=tk.DISABLED
         )
 
-        self.entryfrecuencia.grid(row=7, column=6, pady=10)
+        self.entryfrecuencia.grid(row=8, column=6)
 
         self.labeldc = tk.Label(
             self,
             text='Ingrese el valor del Dutycycle del pulso:',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.labeldc.grid(row=8, column=5, pady=10)
+        self.labeldc.grid(row=9, column=5, pady=25)
 
         self.inputdc = tk.StringVar()
 
         self.entrydc = tk.Entry(
             self,
             textvariable=self.inputdc,
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.entrydc.grid(row=8, column=6, pady=10)
+        self.entrydc.grid(row=9, column=6, pady=25)
 
         self.labelw0 = tk.Label(
             self,
             text='Ingrese el valor de w0:',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
 
-        self.labelw0.grid(row=4, column=5)
+        self.labelw0.grid(row=5, column=5)
 
         self.inputw0 = tk.StringVar()
 
         self.entryw0 = tk.Entry(
             self,
             textvariable=self.inputw0,
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.entryw0.grid(row=4, column=6)
+        self.entryw0.grid(row=5, column=6)
 
         self.labelE = tk.Label(
             self,
             text='Ingrese el valor de e:',
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
 
         )
-        self.labelE.grid(row=5, column=5)
+        self.labelE.grid(row=6, column=5)
 
         self.inputE = tk.StringVar()
 
         self.entryE = tk.Entry(
             self,
             textvariable=self.inputE,
-            bg='#42f498',
+            bg='#c0c0c0',
             state=tk.DISABLED
         )
-        self.entryE.grid(row=5, column=6)
+        self.entryE.grid(row=6, column=6)
 
         self.continuar = tk.Button(
             self,
             text="Continuar",
             font=Config.SMALL_FONT,
-            background="#ccffd5",
+            background="#c0c0c0",
             command=self.continuar
         )
-        self.continuar.grid(row=9, column=6)
+        self.continuar.grid(row=10, column=6, pady=25)
 
     def assign_var_orden(self):
-        self.TurnOnAllEntries()
-
         orden['orden1'] = 0
         orden['oprden2'] = 0
 
         if not self.orden.get():
+            self.TurnOnEntry([self.entrypolo, self.entryganancia], [self.labelpolo, self.labelganancia])
+            self.TurnOnButton([self.circuloalto, self.circulobajo, self.circulotodo])
+
+            self.TurnOffButton([self.circulobanda, self.circulonotch])
+            self.TurnOffEntry([self.entryw0, self.entryE], [self.labelw0, self.labelE])
+
             orden['orden1'] = 1
         else:
+            self.TurnOnEntry([self.entryganancia, self.entryw0, self.entryE], [self.labelganancia, self.labelw0, self.labelE])
+            self.TurnOffEntry([self.entrypolo], [self.labelpolo])
+
+            self.TurnOnButton([self.circuloalto,self.circulobajo, self.circulotodo, self.circulobanda, self.circulonotch])
+
             orden['orden2'] = 1
+
 
 
     #este método escribe en userinput que tipo de filtro se pide
     def asign_var_filtro(self):
-        self.circuloBode.configure(state=tk.NORMAL)
-        self.circuloSenhal.configure(state=tk.NORMAL)
+        self.TurnOnButton([self.circuloBode, self.circuloSenhal])
 
         filtro['alto'] = 0
         filtro['bajo'] = 0
@@ -405,25 +431,17 @@ class Orden1(tk.Frame):
 
             modo['Bode'] = 1
             #Activa los botones
-            self.circuloHertz.configure(state=tk.NORMAL)
-            self.circuloRadianes.configure(state=tk.NORMAL)
-            self.circuloDB.configure(state=tk.NORMAL)
-            self.circuloB.configure(state=tk.NORMAL)
+            self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circuloDB, self.circuloB])
 
-            self.circulosenoide.configure(state=tk.DISABLED)
-            self.circulopulso.configure(state=tk.DISABLED)
-            self.circulopulsoper.configure(state=tk.DISABLED)
+            #desactiva botones que no se usan
+            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulosenoide, self.circulopulso, self.circulopulsoper])
+
         else:
             modo['Salida'] = 1
             #Desactiva los botones
-            self.circulosenoide.configure(state=tk.NORMAL)
-            self.circulopulso.configure(state=tk.NORMAL)
-            self.circulopulsoper.configure(state=tk.NORMAL)
+            self.TurnOnButton([self.circulosenoide, self.circulopulso, self.circulopulsoper])
 
-            self.circuloHertz.configure(state=tk.DISABLED)
-            self.circuloRadianes.configure(state=tk.DISABLED)
-            self.circuloDB.configure(state=tk.DISABLED)
-            self.circuloB.configure(state=tk.DISABLED)
+            self.TurnOffButton([self.circuloHertz, self.circuloRadianes, self.circuloDB, self.circuloB])
 
     def asign_var_ejex(self):
 
@@ -451,17 +469,22 @@ class Orden1(tk.Frame):
         senhal['pulsoper'] = 0
 
         self.labelamp.configure(state=tk.NORMAL)
-        self.entrysenoide.configure(state=tk.NORMAL)
+        self.entryamp.configure(state=tk.NORMAL)
         self.labelfrecuencia.configure(state=tk.NORMAL)
         self.entryfrecuencia.configure(state=tk.NORMAL)
 
         if not self.tipodesenhal.get():
+            self.TurnOnEntry([self.entryamp, self.entryfrecuencia], [self.labelamp, self.labelfrecuencia])
+
+            self.TurnOffEntry([self.entrydc], [self.labeldc])
             senhal['senoide'] = 1
         elif self.tipodesenhal.get() == 1:
+            self.TurnOnEntry([self.entryamp], [self.labelamp])
+            self.TurnOffEntry([self.entryfrecuencia, self.entrydc], [self.labelfrecuencia, self.labeldc])
+
             senhal['pulso'] = 1
         else:
-            self.labeldc.configure(state=tk.NORMAL)
-            self.entrydc.configure(state=tk.NORMAL)
+            self.TurnOnEntry([self.entryamp, self.entryfrecuencia, self.entrydc], [self.labelamp, self.labelfrecuencia, self.labeldc])
             senhal['pulsoper'] = 1
 
     #muestro siguiente pantalla y asigno el valor de la frecuencia del polo y/o cero, falta agregar que apsa si me mete algo que no sea un numero o vacio
@@ -469,14 +492,14 @@ class Orden1(tk.Frame):
         if self.entrypolo.get():
             userinput['f0'] = float(self.entrypolo.get())
 
-        if self.entrycero.get():
-            userinput['c'] = float(self.entrycero.get())
+        if self.entryganancia.get():
+            userinput['c'] = float(self.entryganancia.get())
 
         if self.entryfrecuencia.get():
             senhalparams['frecuencia'] = float(self.entryfrecuencia.get())
 
-        if self.entrysenoide.get():
-            senhalparams['Amplitud'] = float(self.entrysenoide.get())
+        if self.entryamp.get():
+            senhalparams['Amplitud'] = float(self.entryamp.get())
 
         if self.entrydc.get():
             senhalparams['DutyCicle'] = float(self.entrydc.get())
@@ -494,16 +517,16 @@ class Orden1(tk.Frame):
     def show_etiquetas(self):
         contador = 0
         for L in self.etiquetas:
-            L.grid(row=1, column=contador)
+            L.grid(row=2, column=contador)
             contador += 1
 
     def TurnOffAllEntries(self):
         self.labelpolo.configure(state=tk.DISABLED)
         self.labelganancia.configure(state=tk.DISABLED)
         self.entrypolo.configure(state=tk.DISABLED)
-        self.entrycero.configure(state=tk.DISABLED)
+        self.entryganancia.configure(state=tk.DISABLED)
         self.labelamp.configure(state=tk.DISABLED)
-        self.entrysenoide.configure(state=tk.DISABLED)
+        self.entryamp.configure(state=tk.DISABLED)
         self.labeldc.configure(state=tk.DISABLED)
         self.entrydc.configure(state=tk.DISABLED)
         self.labelE.configure(state=tk.DISABLED)
@@ -513,17 +536,21 @@ class Orden1(tk.Frame):
         self.labelw0.configure(state=tk.DISABLED)
         self.entryw0.configure(state=tk.DISABLED)
 
-    def TurnOffEntry(self, entry, label):
-        entry.configure(state=tk.DISABLED)
-        label.configure(state=tk.DISABLED)
+    def TurnOffEntry(self, entry_lst, label_lst):
+        for entry in entry_lst:
+            entry.configure(state=tk.DISABLED)
+
+        for label in label_lst:
+            label.configure(state=tk.DISABLED)
+
 
     def TurnOnAllEntries(self):
         self.labelpolo.configure(state=tk.NORMAL)
         self.labelganancia.configure(state=tk.NORMAL)
         self.entrypolo.configure(state=tk.NORMAL)
-        self.entrycero.configure(state=tk.NORMAL)
+        self.entryganancia.configure(state=tk.NORMAL)
         self.labelamp.configure(state=tk.NORMAL)
-        self.entrysenoide.configure(state=tk.NORMAL)
+        self.entryamp.configure(state=tk.NORMAL)
         self.labeldc.configure(state=tk.NORMAL)
         self.entrydc.configure(state=tk.NORMAL)
         self.labelE.configure(state=tk.NORMAL)
@@ -533,9 +560,20 @@ class Orden1(tk.Frame):
         self.labelw0.configure(state=tk.NORMAL)
         self.entryw0.configure(state=tk.NORMAL)
 
-    def TurnOnEntry(self, entry, label):
-        entry.configure(state=tk.NORMAL)
-        label.configure(state=tk.NORMAL)
+    def TurnOnEntry(self, entry_lst, label_lst):
+        for entry in entry_lst:
+            entry.configure(state=tk.NORMAL)
+
+        for label in label_lst:
+            label.configure(state=tk.NORMAL)
+
+    def TurnOnButton(self, lst):
+        for button in lst:
+            button.configure(state=tk.NORMAL)
+
+    def TurnOffButton(self, lst):
+        for button in lst:
+            button.configure(state=tk.DISABLED)
 
     def focus(self):
         pass
