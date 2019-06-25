@@ -505,11 +505,11 @@ class Orden1(tk.Frame):
             self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circuloDB, self.circuloB])
 
             #desactiva botones que no se usan
-            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulosenoide, self.circulopulso, self.circulopulsoper])
+            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulosenoide, self.circulopulso, self.circulopulsoper, self.circulogrados])
         elif self.modografico.get() == 1:
             modo['Bodefase'] = 1
 
-            self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circuloB])
+            self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circuloB, self.circulogrados])
             self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulosenoide, self.circulopulso, self.circulopulsoper])
 
         else:
@@ -517,7 +517,7 @@ class Orden1(tk.Frame):
             #Desactiva los botones
             self.TurnOnButton([self.circulosenoide, self.circulopulso, self.circulopulsoper])
 
-            self.TurnOffButton([self.circuloHertz, self.circuloRadianes, self.circuloDB, self.circuloB])
+            self.TurnOffButton([self.circuloHertz, self.circuloRadianes, self.circuloDB, self.circuloB, self.circulogrados])
 
     def asign_var_ejex(self):
 
