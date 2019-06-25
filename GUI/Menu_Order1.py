@@ -450,16 +450,15 @@ class Orden1(tk.Frame):
 
     def assign_var_orden(self):
         orden['orden1'] = 0
-        orden['oprden2'] = 0
+        orden['orden2'] = 0
 
         if not self.orden.get():
             self.TurnOnEntry([self.entrypolo, self.entrygananciabp], [self.labelpolo, self.labelgananciabp])
             self.TurnOnButton([self.circuloalto, self.circulobajo, self.circulotodo])
 
-            self.TurnOffButton([self.circulobanda, self.circulonotch])
+            self.TurnOffButton([self.circulobanda, self.circulonotch, self.gananciamax])
             self.TurnOffEntry([self.entryw0, self.entryE], [self.labelw0, self.labelE])
 
-            self.TurnOnButton([self.gananciabp])
             orden['orden1'] = 1
         else:
             self.TurnOnEntry([self.entrygananciabp, self.entryw0, self.entryE], [self.labelgananciabp, self.labelw0, self.labelE])
@@ -467,23 +466,31 @@ class Orden1(tk.Frame):
 
             self.TurnOnButton([self.circuloalto,self.circulobajo, self.circulotodo, self.circulobanda, self.circulonotch])
 
-            self.TurnOnButton([self.gananciabp, self.gananciamax])
             orden['orden2'] = 1
 
 
 
     #este método escribe en userinput que tipo de filtro se pide
     def asign_var_filtro(self):
-        self.TurnOnButton([self.circuloBode, self.circuloSenhal, self.circuloBodefase])
+        self.TurnOnButton([self.circuloBode, self.circuloSenhal, self.circuloBodefase, self.gananciabp])
+
+        self.TurnOffEntry([self.entryamp, self.entryfrecuencia, self.entrydc],
+                          [self.labelamp, self.labelfrecuencia, self.labeldc])
 
         filtro['alto'] = 0
         filtro['bajo'] = 0
         filtro['todo'] = 0
+        filtro['banda'] = 0
+        filtro['notch'] = 0
 
         if not self.modofiltro.get():
             filtro['alto'] = 1
+            if self.orden.get():
+                self.TurnOnButton([self.gananciamax, self.gananciabp])
         elif self.modofiltro.get() == 1:
             filtro['bajo'] = 1
+            if self.orden.get():
+                self.TurnOnButton([self.gananciamax, self.gananciabp])
         elif self.modofiltro.get() == 2:
             self.TurnOffButton([self.gananciamax])
             filtro['todo'] = 1
@@ -497,6 +504,7 @@ class Orden1(tk.Frame):
     def asign_var_grafico(self):
         modo['Bode'] = 0
         modo['Salida'] = 0
+        modo['Bodefase'] = 0
 
         if not self.modografico.get():
 
@@ -505,12 +513,16 @@ class Orden1(tk.Frame):
             self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circuloDB, self.circuloB])
 
             #desactiva botones que no se usan
-            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulosenoide, self.circulopulso, self.circulopulsoper, self.circulogrados])
+            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulopulsoper, self.circulogrados])
+            self.TurnOffEntry([self.entryamp, self.entryfrecuencia, self.entrydc],
+                              [self.labelamp, self.labelfrecuencia, self.labeldc])
         elif self.modografico.get() == 1:
             modo['Bodefase'] = 1
 
-            self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circuloB, self.circulogrados])
-            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulosenoide, self.circulopulso, self.circulopulsoper])
+            self.TurnOnButton([self.circuloHertz, self.circuloRadianes, self.circulogrados])
+            self.TurnOffButton([self.circulosenoide, self.circulopulso, self.circulopulsoper, self.circuloB, self.circuloDB])
+            self.TurnOffEntry([self.entryamp, self.entryfrecuencia, self.entrydc],
+                              [self.labelamp, self.labelfrecuencia, self.labeldc])
 
         else:
             modo['Salida'] = 1
@@ -533,7 +545,7 @@ class Orden1(tk.Frame):
 
         ejey['Decibeles'] = 0
         ejey['Veces'] = 0
-        ejey['Gradps'] = 0
+        ejey['Grados'] = 0
 
         if not self.modoejey.get():
             ejey['Decibeles'] = 1
@@ -566,11 +578,11 @@ class Orden1(tk.Frame):
         ganancia['gmax'] = 0
 
         if not self.tipoganancia.get():
-            self.TurnOnEntry([self.gananciabp], [self.labelgananciabp])
+            self.TurnOnEntry([self.entrygananciabp], [self.labelgananciabp])
             self.TurnOffEntry([self.entrygananciamax], [self.labelgananciamax])
             ganancia['gbp'] = 1
         else:
-            self.TurnOnEntry([self.gananciamax], [self.labelgananciamax])
+            self.TurnOnEntry([self.entrygananciamax], [self.labelgananciamax])
             self.TurnOffEntry([self.entrygananciabp], [self.labelgananciabp])
             ganancia['gmax'] = 1
 
