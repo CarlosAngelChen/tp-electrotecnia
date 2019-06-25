@@ -4,6 +4,7 @@ from tkinter import *
 
 from UserInput import *
 
+
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.backends._backend_tk import NavigationToolbar2Tk
 
@@ -99,6 +100,8 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
@@ -119,6 +122,8 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
@@ -139,15 +144,22 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
     def plotPasaAlto2Orden(self):
-        ganancia = userinput['c']
         e = userinput['e']
         w0 = userinput['wo']
 
-        k = ganancia/(w0*w0)
+        if ganancia['gmax']:
+            gain = userinput['cmax']
+            k = ((2 * e * gain * np.sqrt(1 - e * e))/(w0 * w0))
+
+        else:
+            gain = userinput['c']
+            k = gain/(w0*w0)
 
         ceros = [k, 0, 0]
         polos = [1/(w0*w0), (2*e)/w0, 1]
@@ -157,22 +169,25 @@ class Grafico(tk.Frame):
         w, dB, phase = signal.bode(sys2, n=500)
         f = w/np.pi
 
-        print(userinput["c"])
-        print(userinput["e"])
-        print(userinput["wo"])
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
 
 
     def plotPasaBajo2Orden(self):
-        ganancia = userinput['c']
         w0 = userinput['wo']
         e = userinput['e']
 
-        k = ganancia
+        if ganancia['gmax']:
+            gain = userinput['cmax']
+            k = gain * 2 * e * np.sqrt(1 - e * e)
+        else:
+            gain = userinput['c']
+            k = gain
 
         ceros = [k]
         polos = [1/(w0*w0), 2*e/w0, 1]
@@ -185,6 +200,8 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
@@ -207,16 +224,19 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
 
     def plotPasaBanda2Orden(self):
-        ganancia = userinput['c']
         w0 = userinput['wo']
         e = userinput['e']
 
-        k = ganancia*2*e/w0
+        gain = userinput['c']
+        k = gain * 2 * e / w0
+
         ceros = [k, 0]
         polos = [1/(w0**2), 2*e/w0, 1]
 
@@ -228,6 +248,8 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
@@ -248,38 +270,41 @@ class Grafico(tk.Frame):
 
         if modo['Bode']:
             self.grafBode(f, dB, w)
+        elif modo['Bodefase']:
+            self.grafBodefase(f, w, phase)
         else:
             self.grafSignal(sys2, w0)
 
     def grafBode(self, f, dB, w):
-        if modo['Bode']:
-            if ejex['Hertz'] and ejey['Decibeles']:
-                self.ax1.semilogx(f, dB)
-                self.ax1.set_xlabel('Hz')
-                self.ax1.set_ylabel('dB')
-                self.ax1.set_title('Base 10')
-                self.ax1.grid(True)
+        if ejex['Hertz'] and ejey['Decibeles']:
+            self.ax1.semilogx(f, dB)
+            self.ax1.set_xlabel('Hz')
+            self.ax1.set_ylabel('dB')
+            self.ax1.set_title('Base 10')
+            self.ax1.grid(True)
 
-            elif ejex['Radianes'] and ejey['Decibeles']:
-                self.ax1.semilogx(w, dB)
-                self.ax1.set_xlabel('rad/s')
-                self.ax1.set_ylabel('B')
-                self.ax1.set_title('Base 10')
-                self.ax1.grid(True)
+        elif ejex['Radianes'] and ejey['Decibeles']:
+            self.ax1.semilogx(w, dB)
+            self.ax1.set_xlabel('rad/s')
+            self.ax1.set_ylabel('B')
+            self.ax1.set_title('Base 10')
+            self.ax1.grid(True)
 
-            elif ejex['Hertz'] and ejey['Beles']:
-                self.ax1.semilogx(f, dB, basex=2)
-                self.ax1.set_xlabel('Hz')
-                self.ax1.set_ylabel('dB')
-                self.ax1.set_title('Base 2')
-                self.ax1.grid(True)
+        elif ejex['Hertz'] and ejey['Veces']:
+            veces = 10**(dB/20)
+            self.ax1.semilogx(f, veces)
+            self.ax1.set_xlabel('Hz')
+            self.ax1.set_ylabel('|H| veces')
+            self.ax1.set_title('Base 10')
+            self.ax1.grid(True)
 
-            elif ejex['Radianes'] and ejey['Beles']:
-                self.ax1.semilogx(w, dB, basex=2)
-                self.ax1.set_xlabel('rad/s')
-                self.ax1.set_ylabel('B')
-                self.ax1.set_title('Base 2')
-                self.ax1.grid(True)
+        elif ejex['Radianes'] and ejey['Veces']:
+            veces = 10**(dB/20)
+            self.ax1.semilogx(w, veces)
+            self.ax1.set_xlabel('rad/s')
+            self.ax1.set_ylabel('|H| veces')
+            self.ax1.set_title('Base 10')
+            self.ax1.grid(True)
 
     def grafSignal(self, sys2, w0):
         if senhal['senoide']:
@@ -321,3 +346,16 @@ class Grafico(tk.Frame):
             self.ax1.set_xlabel('seg')
             self.ax1.set_ylabel('A (ammplitud)')
             self.ax1.grid(True)
+
+    def grafBodefase(self, f, w, phase):
+
+        if ejex['Radianes'] and ejey['Grados']:
+            self.ax1.semilogx(w, phase)
+            self.ax1.set_xlabel('rad/s')
+            self.ax1.set_ylabel('Grados')
+            self.ax1.grid(True)
+
+        elif ejex['Hertz'] and ejey['Grados']:
+            self.ax1.semilogx(f, phase)
+            self.ax1.set_xlabel('Hz')
+            self.ax1.set_ylabel('Grados')
