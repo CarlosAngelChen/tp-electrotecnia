@@ -101,6 +101,17 @@ class Orden1(tk.Frame):
         )
         self.circulobanda.grid(row=5, column=1)
 
+        self.circulonotch = tk.Radiobutton(
+            self,
+            height=5,
+            text='Pasa Notch',
+            value=4,
+            variable=self.modofiltro,
+            command=self.asign_var_filtro,
+            background='#42f498'
+        )
+        self.circulonotch.grid(row=6, column=1)
+
         self.modografico = tk.IntVar(value=99)
 
         self.circuloBode = tk.Radiobutton(
